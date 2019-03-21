@@ -10,6 +10,7 @@ import * as ROUTES from "../../constants/routes";
 const SignInPage = () => (
   <div>
     <SignInForm />
+    
   </div>
 );
 
@@ -98,7 +99,7 @@ class SignInFormBase extends Component {
             </div>
           </div>
           <PasswordForgetLink />
-            <SignUpLink />
+    <SignUpLink />
         </div>
       </div>
     );
