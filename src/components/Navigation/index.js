@@ -97,7 +97,7 @@ const NavigationNonAuth = () => (
         {" "}
         <a className="navbar-brand d-none d-md-block" href="/">
           <i className="fa d-inline fa-lg fa-circle" />
-          <b >SEAMLESS CONNECTIVITY</b>
+          <b>SEAMLESS CONNECTIVITY</b>
         </a>
         <ul className="navbar-nav">
           <Link

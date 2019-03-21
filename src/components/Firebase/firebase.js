@@ -2,18 +2,32 @@ import app from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 
-const config = {
-  apiKey: "AIzaSyBzZxwaq5jYjACKxQgI25yyrzV0DIjVNEc",
-  authDomain: "seamlessconnectivity-fbce5.firebaseapp.com",
-  databaseURL: "https://seamlessconnectivity-fbce5.firebaseio.com",
-  projectId: "seamlessconnectivity-fbce5",
-  storageBucket: "seamlessconnectivity-fbce5.appspot.com",
-  messagingSenderId: "1047561021153"
+const prodConfig = {
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL:process.env.REACT_APP_DATABASE_URL,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket:process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId:process.env.REACT_APP_MESSAGING_SENDER_ID
 };
+
+const devConfig = {
+  apiKey: process.env.REACT_APP_DEV_API_KEY,
+  authDomain: process.env.REACT_APP_DEV_AUTH_DOMAIN,
+  databaseURL:process.env.REACT_APP_DEV_DATABASE_URL,
+  projectId: process.env.REACT_APP_DEV_PROJECT_ID,
+  storageBucket:process.env.REACT_APP_DEV_STORAGE_BUCKET,
+  messagingSenderId:process.env.REACT_APP_DEV_MESSAGING_SENDER_ID
+  };
+
+const config=process.env.NODE_ENV==='production'? prodConfig : devConfig;
 
 class Firebase {
   constructor() {
     app.initializeApp(config);
+
+    if(process.env.NODE_ENV==='development')
+        window.alert("development mode..");
 
     /* Helper */
 
