@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "seamlessconnectivity-fbce5"
+    "dev": "seamless-connectivity-dev",
+    "default": "seamless-connectivity"
   }
 }
