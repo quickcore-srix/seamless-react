@@ -203,6 +203,6 @@ const LoginManagement = withFirebase(LoginManagementBase);
 const condition = authUser => !!authUser;
 
 export default compose(
-  //withEmailVerification,
+  withEmailVerification,
   withAuthorization(condition)
 )(AccountPage);

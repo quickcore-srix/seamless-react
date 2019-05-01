@@ -6,10 +6,13 @@ import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 import * as ROLES from "../../constants/roles";
 
+import app from "firebase/app";
+
 const SignUpPage = () => (
   <div>
-    <h1>SignUp</h1>
-    <SignUpForm />
+    {/*<h1>SignUp</h1>*/}
+    <div>Signup feature is blocked</div>
+    {/* <SignUpForm /> */}
   </div>
 );
 
@@ -43,6 +46,8 @@ class SignUpFormBase extends Component {
     const { username, email, passwordOne, isAdmin } = this.state;
     const roles = [];
 
+    this.db = app.firestore();
+
     if (isAdmin) {
       roles.push(ROLES.ADMIN);
     }
@@ -50,12 +55,19 @@ class SignUpFormBase extends Component {
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
-        // Create a user in your Firebase realtime database
-        return this.props.firebase.user(authUser.user.uid).set({
-          username,
-          email,
-          roles
-        });
+        // Create a user in your Firebase  firestore database
+        return this.db
+          .collection("users")
+          .doc(authUser.user.uid)
+          .set({
+            userid: authUser.user.uid,
+            username: username,
+            email: email,
+            role: roles
+          });
+      })
+      .then(() => {
+        return this.props.firebase.doSendEmailVerification();
       })
       .then(() => {
         this.setState({ ...INITIAL_STATE });

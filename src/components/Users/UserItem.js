@@ -1,48 +1,49 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { withFirebase } from '../Firebase';
+import { withFirebase } from "../Firebase";
 
 class UserItem extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      loading: false,
-      user: null,
-      ...props.location.state,
-    };
+    this.state = {};
   }
 
   componentDidMount() {
-    if (this.state.user) {
-      return;
-    }
-
-    this.setState({ loading: true });
-
-    this.props.firebase
-      .user(this.props.match.params.id)
-      .on('value', snapshot => {
-        this.setState({
-          user: snapshot.val(),
-          loading: false,
-        });
+    this.setState();
+    console.log(this.props);
+    // console.log(this.props.firebase.user());
+    var docRef = this.props.firebase.db.doc(
+      `users/bBWz00y3KChJbzOBvb6DtviVuBw1`
+    );
+    docRef
+      .get()
+      .then(function(doc) {
+        if (doc.exists) {
+          console.log("data : ", doc.data());
+        } else {
+          console.log("no such document");
+        }
+      })
+      .catch(function(error) {
+        console.log("error", error);
       });
   }
 
   componentWillUnmount() {
-    this.props.firebase.user(this.props.match.params.id).off();
+    //this.props.firebase.user(this.props.match.params.id).off();
   }
 
   onSendPasswordResetEmail = () => {
-    this.props.firebase.doPasswordReset(this.state.user.email);
+    //this.props.firebase.doPasswordReset(this.state.user.email);
   };
 
   render() {
-    const { user, loading } = this.state;
+    // const { user, loading } = this.state;
 
     return (
-      <div>
+      <h1> users</h1>
+      /*<div>
         <h2>User ({this.props.match.params.id})</h2>
         {loading && <div>Loading ...</div>}
 
@@ -58,16 +59,13 @@ class UserItem extends Component {
               <strong>Username:</strong> {user.username}
             </span>
             <span>
-              <button
-                type="button"
-                onClick={this.onSendPasswordResetEmail}
-              >
+              <button type="button" onClick={this.onSendPasswordResetEmail}>
                 Send Password Reset
               </button>
             </span>
           </div>
         )}
-      </div>
+      </div>*/
     );
   }
 }

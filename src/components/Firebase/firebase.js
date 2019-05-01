@@ -1,33 +1,58 @@
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
+import "firebase/firestore";
+import "firebase/functions";
+
+let config;
 
 const prodConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  databaseURL:process.env.REACT_APP_DATABASE_URL,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
   projectId: process.env.REACT_APP_PROJECT_ID,
-  storageBucket:process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId:process.env.REACT_APP_MESSAGING_SENDER_ID
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  confirmationEmailRedirect: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT
 };
 
 const devConfig = {
   apiKey: process.env.REACT_APP_DEV_API_KEY,
   authDomain: process.env.REACT_APP_DEV_AUTH_DOMAIN,
-  databaseURL:process.env.REACT_APP_DEV_DATABASE_URL,
+  databaseURL: process.env.REACT_APP_DEV_DATABASE_URL,
   projectId: process.env.REACT_APP_DEV_PROJECT_ID,
-  storageBucket:process.env.REACT_APP_DEV_STORAGE_BUCKET,
-  messagingSenderId:process.env.REACT_APP_DEV_MESSAGING_SENDER_ID
-  };
-
-const config=process.env.NODE_ENV==='production'? prodConfig : devConfig;
+  storageBucket: process.env.REACT_APP_DEV_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_DEV_MESSAGING_SENDER_ID,
+  confirmationEmailRedirect:
+    process.env.REACT_APP_DEV_CONFIRMATION_EMAIL_REDIRECT
+};
 
 class Firebase {
   constructor() {
+    config = devConfig;
     app.initializeApp(config);
 
-    if(process.env.NODE_ENV==='development')
-        window.alert("development mode..");
+    //offline persistence
+    app
+      .firestore()
+      .enablePersistence()
+      .catch(function(err) {
+        if (err.code === "failed-precondition") {
+          console.log("network lost");
+          // Multiple tabs open, persistence can only be enabled
+          // in one tab at a a time.
+          // ...
+        } else if (err.code === "unimplemented") {
+          // The current browser does not support all of the
+          // features required to enable persistence
+          // ...
+        }
+      });
+
+    if (config === devConfig) {
+      console.log("development mode..");
+      window.alert("development mode..");
+    } else console.log("production mode..");
 
     /* Helper */
 
@@ -37,7 +62,8 @@ class Firebase {
     /* Firebase APIs */
 
     this.auth = app.auth();
-    this.db = app.database();
+    this.db = app.firestore();
+    this.funct = app.functions();
 
     /* Social Sign In Method Provider */
 
@@ -64,23 +90,24 @@ class Firebase {
 
   doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
-  /*doSendEmailVerification = () =>
+  doSendEmailVerification = () =>
     this.auth.currentUser.sendEmailVerification({
-      url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT
+      //url: config.confirmationEmailRedirect
     });
 
-  doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);*/
+  doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
 
   // *** Merge Auth and DB User API *** //
 
   onAuthUserListener = (next, fallback) =>
     this.auth.onAuthStateChanged(authUser => {
+      console.log(authUser);
       if (authUser) {
         this.user(authUser.uid)
-          .once("value")
+          .get()
           .then(snapshot => {
-            const dbUser = snapshot.val();
-
+            const dbUser = snapshot.data();
+            // console.log(dbUser);
             // default empty roles
             if (!dbUser.roles) {
               dbUser.roles = [];
@@ -104,15 +131,15 @@ class Firebase {
 
   // *** User API ***
 
-  user = uid => this.db.ref(`users/${uid}`);
+  user = uid => this.db.doc(`users/${uid}`);
 
-  users = () => this.db.ref("users");
+  users = () => this.db.collection("users");
 
   // *** Message API ***
 
-  message = uid => this.db.ref(`messages/${uid}`);
+  message = uid => this.db.doc(`messages/${uid}`);
 
-  messages = () => this.db.ref("messages");
+  messages = () => this.db.collection("messages");
 }
 
 export default Firebase;
