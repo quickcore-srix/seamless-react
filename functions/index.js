@@ -19,11 +19,13 @@ exports.addUser = functions.https.onCall((data, context) => {
       return admin
         .firestore()
         .collection("users")
-        .doc(userRecord.uid)
+        .doc(data.mac_id)
         .set({
           username: data.displayName,
           email: data.email,
-          role: data.admin
+          roles: data.roles,
+          user_id: userRecord.uid,
+          address: data.address
         })
         .then(writeResult => {
           return {
@@ -52,12 +54,14 @@ exports.deleteUser = functions.https.onCall((data, context) => {
         .deleteUser(userRecord.uid)
         .then(result => {
           return (
-            docRef.doc(userRecord.uid).delete(),
+            docRef.doc(data.mac_id).delete(),
             console.log(
               "Successfully deleted user ",
               result,
               " ",
-              userRecord.uid
+              userRecord.uid,
+              " mac_id : ",
+              mac_id
             )
           );
         })

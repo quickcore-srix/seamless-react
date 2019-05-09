@@ -102,27 +102,44 @@ class Firebase {
   onAuthUserListener = (next, fallback) =>
     this.auth.onAuthStateChanged(authUser => {
       console.log(authUser);
+      let mac_id;
       if (authUser) {
-        this.user(authUser.uid)
+        this.db
+          .collection("users")
+          .where("user_id", "==", authUser.uid)
           .get()
-          .then(snapshot => {
-            const dbUser = snapshot.data();
-            // console.log(dbUser);
-            // default empty roles
-            if (!dbUser.roles) {
-              dbUser.roles = [];
-            }
+          .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+              // console.log(doc.id);
+              mac_id = doc.id;
+              this.db
+                .doc(`users/${mac_id}`)
+                .get()
+                .then(snapshot => {
+                  const dbUser = snapshot.data();
+                  dbUser.mac_id = mac_id;
+                  // console.log(dbUser);
+                  // default empty roles
+                  if (!dbUser.roles) {
+                    dbUser.roles = [];
+                  }
 
-            // merge auth and db user
-            authUser = {
-              uid: authUser.uid,
-              email: authUser.email,
-              emailVerified: authUser.emailVerified,
-              providerData: authUser.providerData,
-              ...dbUser
-            };
+                  // merge auth and db user
+                  authUser = {
+                    uid: authUser.uid,
+                    email: authUser.email,
+                    emailVerified: authUser.emailVerified,
+                    providerData: authUser.providerData,
+                    ...dbUser
+                  };
+                  //console.log(authUser);
 
-            next(authUser);
+                  next(authUser);
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+            });
           });
       } else {
         fallback();
@@ -131,10 +148,9 @@ class Firebase {
 
   // *** User API ***
 
-  user = uid => this.db.doc(`users/${uid}`);
+  user = mac_id => this.db.doc(`users/${mac_id}`);
 
   users = () => this.db.collection("users");
-
   // *** Message API ***
 
   message = uid => this.db.doc(`messages/${uid}`);

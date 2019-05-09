@@ -6,8 +6,8 @@ import { withAuthorization, withEmailVerification } from "../Session";
 import { UserItem } from "../Users";
 import * as ROLES from "../../constants/roles";
 import * as ROUTES from "../../constants/routes";
-import ManageUsers from "./";
 import { withFirebase } from "../Firebase";
+import AddUserPage from "./AddUser";
 
 const AdminPage = () => (
   <div>
@@ -16,7 +16,7 @@ const AdminPage = () => (
 
     <Switch>
       <Route exact path={ROUTES.ADMIN_DETAILS} component={UserItem} />
-      <Route exact path={ROUTES.ADDUSER} component={ManageUsers} />
+      <Route exact path={ROUTES.ADDUSER} component={AddUserPage} />
     </Switch>
   </div>
 );

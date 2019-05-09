@@ -1,4 +1,32 @@
-###### SETTING UP DEVELOPMENT ENVIRONMENT
+#### SETTING UP PROJECT AND REQUIRED ENVIRONMENT FOR DEVELOPMENT AND DEPLOYMENT
+
+### install Node.js
+
+windows(x64) : https://nodejs.org/dist/v12.1.0/node-v12.1.0-x64.msi
+additional information : https://nodejs.org/en/
+
+during installation process check all the features given.
+
+### After installation :
+
+check node version in command prompt : node -v
+check npm version in command prompt : npm -v
+
+### install firebase for node.js
+
+`npm install firebase`
+
+### installing firebase tools
+
+`npm i -g firebase-tools`
+
+### cloning code
+
+C:\Users\(Your Name)> D:
+
+D:\> git clone https://github.com/quickcore-srix/seamless-react.git
+
+D:\> cd seamless-react
 
 ### If you don't already have a package.json file, create one via
 
@@ -25,6 +53,8 @@ To generate a private key file for your service account:
 ### authentication using admin-sdk
 
 https://firebase.google.com/docs/auth/admin/
+
+###### SETTING UP DEVELOPMENT ENVIRONMENT
 
 ### change `config=devConfig` in src/Firebase/firebase.js file
 
@@ -94,3 +124,9 @@ It correctly bundles React in production mode and optimizes the build for the be
 ### `firebase deploy`
 
      deploying files to "seamless-connectivity"
+
+### Link
+
+development : https://seamless-connectivity-dev.firebaseapp.com/
+
+production : https://seamless-connectivity.firebaseapp.com/

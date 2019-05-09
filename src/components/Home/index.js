@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { compose } from "recompose";
+import { Link } from "react-router-dom";
 
 import { withAuthorization, withEmailVerification } from "../Session";
 import { withFirebase } from "../Firebase";
-import ManageUsers from "../Admin/ManageUsers";
+import * as ROUTES from "../../constants/routes";
+import AddUserPage from "../Admin/AddUser";
 
 class HomePage extends Component {
   constructor(props) {
@@ -16,49 +18,28 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
-    this.props.firebase.db.collection("users").onSnapshot(
-      function(querySnapshot) {
-        var allUsers = [];
-        querySnapshot.forEach(function(doc) {
-          allUsers.push(doc.data().username);
+    this.props.firebase.db.collection("users").onSnapshot(querySnapshot => {
+      var allUsers = [];
+      querySnapshot.forEach(doc => {
+        allUsers.push(doc.data().username);
+      });
+      //console.log("Current cities in CA: ", cities.join(", "));
+      //console.log(this.props);
+      if (allUsers) {
+        this.setState({
+          users: allUsers
         });
-        //console.log("Current cities in CA: ", cities.join(", "));
-        //console.log(this.props);
-        if (allUsers) {
-          this.setState({
-            users: allUsers
-          });
-        } else {
-          this.setState({ users: ["no users"] });
-        }
-      }.bind(this)
-    );
+      } else {
+        this.setState({ users: ["no users"] });
+      }
+    });
   }
 
-  /* addUser = () => {
-    //console.log(this.props.firebase);
-
-    //console.log(this.functions);
-    const add = this.props.firebase.funct.httpsCallable("addUser");
-    add({
-      email: "admin1@gmail.com",
-      emailVerified: false,
-      phoneNumber: "+11234567890",
-      password: "admin1",
-      displayName: "admin1",
-      disabled: false,
-      admin: ["ADMIN"]
-    }).then(result => {
-      console.log(result);
-    });
-  };
-*/
   componentWillUnmount() {
     //this.props.firebase.users().off();
   }
 
   render() {
-    //console.log(this.authUser);
     return (
       <div>
         <h1>Home Page</h1>
@@ -70,8 +51,7 @@ class HomePage extends Component {
             ))}
           </ul>
         </div>
-        {/*<Messages users={this.state.users} />*/}
-        <ManageUsers />
+        <AddUserPage />
       </div>
     );
   }

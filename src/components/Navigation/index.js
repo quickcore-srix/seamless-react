@@ -18,6 +18,20 @@ const NavigationAuth = ({ authUser }) => (
   <nav className="navbar navbar-expand-md navbar-dark bg-primary">
     <div className="container">
       {" "}
+      <div className="sidebar">
+        <a href="#home">
+          <i className="fa fa-fw fa-home" /> Home
+        </a>
+        <a href="#services">
+          <i className="fa fa-fw fa-wrench" /> Services
+        </a>
+        <a href="#clients">
+          <i className="fa fa-fw fa-user" /> Clients
+        </a>
+        <a href="#contact">
+          <i className="fa fa-fw fa-envelope" /> Contact
+        </a>
+      </div>
       <button
         className="navbar-toggler navbar-toggler-right border-0"
         type="button"
