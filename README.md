@@ -46,22 +46,18 @@ check npm version in command prompt : `npm -v`
 
 `npm i -g firebase-tools`
 
-### Next, install the firebase-admin npm package and save it to your package.json
+<br/>
 
-`npm install firebase-admin --save`
+#### All SET !!!
 
-### To generate a private key file for your service account:
+you are good to go
 
-1.In the Firebase console, open Settings > Service Accounts.
+`D:\seamless-react> npm start`
 
-2.Click Generate New Private Key, then confirm by clicking Generate Key.
+It redirects to browser with address `localhost:8080`
 
-3.Securely store the JSON file containing the key. add the path of the JSON File to initialize admin sdk
-
-### authentication using admin-sdk
-
-https://firebase.google.com/docs/auth/admin/
-
+<br/>
+<br/>
 #### SETTING UP DEVELOPMENT ENVIRONMENT
 
 ### change `config=devConfig` in src/Firebase/firebase.js file
@@ -139,7 +135,9 @@ development : https://seamless-connectivity-dev.firebaseapp.com/
 
 production : https://seamless-connectivity.firebaseapp.com/
 
-                          Hope works well!!
+                                     Hope works well!!
 
-          any issues ?  create an issue here : `https://github.com/quickcore-srix/seamless-react/issues`
-                         we will come to you as soon as possible
+### any issues ?
+
+create an issue here : https://github.com/quickcore-srix/seamless-react/issues
+we will come to you as soon as possible
