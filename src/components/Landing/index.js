@@ -1,9 +1,6 @@
 import React, { Component } from "react";
+import SignInPage from "../SignIn";
 
-const Landing = () => (
-  <div>
-    <h1>Landing</h1>
-  </div>
-);
+const Landing = () => <SignInPage />;
 
 export default Landing;
