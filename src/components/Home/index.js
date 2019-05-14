@@ -6,6 +6,11 @@ import { withAuthorization, withEmailVerification } from "../Session";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 import AddUserPage from "../Admin/AddUser";
+import Header from "../Header";
+import Sidebar from "../SideBar";
+import Dashboard from "../Dashboard";
+import Footer from "../Footer";
+import SignOut from "../SignOut";
 
 class HomePage extends Component {
   constructor(props) {
@@ -42,7 +47,48 @@ class HomePage extends Component {
   render() {
     return (
       <div>
-        <h1>Home Page</h1>
+        <div id="page-top">
+          {/*  <!-- Page Wrapper -->*/}
+          <div id="wrapper">
+            {/* <!-- Sidebar --> */}
+            <Sidebar />
+            {/* <!-- End of Sidebar --> */}
+
+            {/* <!-- Content Wrapper --> */}
+            <div id="content-wrapper" className="d-flex flex-column">
+              {/* <!-- Main Content --> */}
+              <div id="content">
+                {/* <!-- Topbar --> */}
+                <Header />
+                {/* <!-- End of Topbar --> */}
+
+                {/* <!-- Begin Page Content --> */}
+                <Dashboard />
+              </div>
+              {/* <!-- End of Main Content --> */}
+              <Footer />
+            </div>
+            {/* <!-- End of Content Wrapper --> */}
+          </div>
+          {/* <!-- End of Page Wrapper --> */}
+
+          {/* <!-- Scroll to Top Button--> */}
+          <a className="scroll-to-top rounded" href="#page-top">
+            <i className="fas fa-angle-up" />
+          </a>
+
+          {/* <!-- Logout Modal--> */}
+          <SignOut />
+          {/* <!-- Bootstrap core JavaScript--> */}
+          <script src="./assets/vendor/jquery/jquery.min.js" />
+          <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js" />
+
+          {/* <!-- Core plugin JavaScript--> */}
+          <script src="./assets/vendor/jquery-easing/jquery.easing.min.js" />
+
+          {/* <!-- Custom scripts for all pages--> */}
+          <script src="./assets/js/sb-admin-2.min.js" />
+        </div>
         <p>All Users</p>
         <div>
           <ul>
@@ -51,7 +97,6 @@ class HomePage extends Component {
             ))}
           </ul>
         </div>
-        <AddUserPage />
       </div>
     );
   }

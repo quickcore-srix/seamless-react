@@ -7,24 +7,23 @@ import "firebase/functions";
 let config;
 
 const prodConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_DATABASE_URL,
-  projectId: process.env.REACT_APP_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  confirmationEmailRedirect: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT
+  apiKey: "AIzaSyBn4HfA-BsvrEFeI1kEFjBH-Fcj_FqyKRg",
+  authDomain: "seamless-connectivity.firebaseapp.com",
+  databaseURL: "https://seamless-connectivity.firebaseio.com",
+  projectId: "seamless-connectivity",
+  storageBucket: "seamless-connectivity.appspot.com",
+  messagingSenderId: "44643550829",
+  confirmationEmailRedirect: "https://seamless-connectivity.firebaseapp.com"
 };
 
 const devConfig = {
-  apiKey: process.env.REACT_APP_DEV_API_KEY,
-  authDomain: process.env.REACT_APP_DEV_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_DEV_DATABASE_URL,
-  projectId: process.env.REACT_APP_DEV_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_DEV_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_DEV_MESSAGING_SENDER_ID,
-  confirmationEmailRedirect:
-    process.env.REACT_APP_DEV_CONFIRMATION_EMAIL_REDIRECT
+  apiKey: "AIzaSyAwDJU1nVMUiHlN-C440JICE496t1Wbo_s",
+  authDomain: "seamless-connectivity-dev.firebaseapp.com",
+  databaseURL: "https://seamless-connectivity-dev.firebaseio.com",
+  projectId: "seamless-connectivity-dev",
+  storageBucket: "seamless-connectivity-dev.appspot.com",
+  messagingSenderId: "609229546320",
+  confirmationEmailRedirect: "https://seamless-connectivity-dev.firebaseapp.com"
 };
 
 class Firebase {
@@ -92,7 +91,7 @@ class Firebase {
 
   doSendEmailVerification = () =>
     this.auth.currentUser.sendEmailVerification({
-      //url: config.confirmationEmailRedirect
+      url: config.confirmationEmailRedirect
     });
 
   doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);

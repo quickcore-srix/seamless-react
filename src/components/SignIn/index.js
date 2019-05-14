@@ -7,9 +7,17 @@ import { PasswordForgetLink } from "../PasswordForget";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 
+import "../../assets/vendor/fontawesome-free/css/all.min.css";
+import "../../assets/css/sb-admin-2.min.css";
+import "./index.css";
+import img from "./empacti.png";
+import ErrorBoundary from "../Error/ErrorBoundary";
+
 const SignInPage = () => (
   <div>
-    <SignInForm />
+    <ErrorBoundary>
+      <SignInForm />
+    </ErrorBoundary>
   </div>
 );
 
@@ -52,54 +60,104 @@ class SignInFormBase extends Component {
     const isInvalid = password === "" || email === "";
 
     return (
-      <div
-        className="text-center"
-        //style={{background-image:" url('https://static.pingendo.com/cover-bubble-dark.svg')"}}
-      >
-        <div className="row">
-          <div className="mx-auto col-md-6 col-10 bg-white p-5">
-            <h1 className="mb-4">Log in</h1>
-            <form onSubmit={this.onSubmit}>
-              <div className="form-group">
-                <input
-                  className="form-control"
-                  name="email"
-                  value={email}
-                  onChange={this.onChange}
-                  type="email"
-                  placeholder="Email Address"
-                  id="form9"
-                />{" "}
-              </div>
-              <div className="form-group mb-3">
-                <input
-                  className="form-control"
-                  name="password"
-                  value={password}
-                  onChange={this.onChange}
-                  type="password"
-                  placeholder="Password"
-                  id="form10"
-                />
-                <small className="form-text text-muted text-right">
-                  <a href="#"> Recover password</a>
-                </small>
-              </div>
-              <button
-                className="btn btn-primary"
-                disabled={isInvalid}
-                type="submit"
-              >
-                Sign In
-              </button>
-              {error && <p>{error.message}</p>}
-            </form>
-          </div>
-        </div>
+      <div className="bg-gradient-primary">
+        <div className="container">
+          {/*</div>//  Outer Row */}
+          <div className="row justify-content-center">
+            <div className="col-xl-10 col-lg-12 col-md-9">
+              <div className="card o-hidden border-0 shadow-lg my-5">
+                <div className="card-body p-0">
+                  {/*} <!-- Nested Row within Card Body -->*/}
+                  <div className="row">
+                    <div
+                      className="col-lg-6 d-none d-lg-block bg-login-image"
+                      style={{
+                        margin: " 0 auto",
+                        alignSelf: "center",
+                        textAlign: "center"
+                      }}
+                    >
+                      <img src={img} alt="img" />
+                    </div>
+                    <div className="col-lg-6">
+                      <div className="p-5">
+                        <div className="text-center">
+                          <h1 className="h4 text-gray-900 mb-4">
+                            Welcome Back!
+                          </h1>
+                        </div>
+                        <form onSubmit={this.onSubmit} className="user">
+                          <div className="form-group">
+                            <input
+                              type="email"
+                              name="email"
+                              value={email}
+                              onChange={this.onChange}
+                              className="form-control form-control-user"
+                              id="form9"
+                              aria-describedby="emailHelp"
+                              placeholder="Enter Email or Ph.no"
+                            />{" "}
+                          </div>
+                          <div className="form-group">
+                            <input
+                              type="password"
+                              name="password"
+                              value={password}
+                              onChange={this.onChange}
+                              className="form-control form-control-user"
+                              id="form10"
+                              placeholder="Password"
+                            />
+                          </div>
 
-        <div>
-          <PasswordForgetLink />
-          <SignUpLink />
+                          <div className="form-group">
+                            <div className="custom-control custom-checkbox small">
+                              <input
+                                type="checkbox"
+                                className="custom-control-input"
+                                id="customCheck"
+                              />
+                              <label
+                                className="custom-control-label form-text text-muted"
+                                htmlFor="customCheck"
+                              >
+                                Remember Me
+                              </label>
+                            </div>
+                          </div>
+                          <button
+                            href="#"
+                            disabled={isInvalid}
+                            className="btn btn-primary btn-user btn-block"
+                            type="submit"
+                          >
+                            Login
+                          </button>
+
+                          {error && <p>{error.message}</p>}
+
+                          <button
+                            href="#"
+                            className="btn btn-google btn-user btn-block"
+                          >
+                            <i className="fab fa-google fa-fw" /> Login with
+                            Google
+                          </button>
+                        </form>
+
+                        <div className="text-center">
+                          <br />
+                          <PasswordForgetLink />
+                          <SignUpLink />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

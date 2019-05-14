@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 
 const AddUserPage = () => (
   <div>
-    <AddUserForm />
+    <AddUserForm>Add User</AddUserForm>
   </div>
 );
 

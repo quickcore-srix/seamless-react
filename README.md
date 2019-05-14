@@ -1,16 +1,18 @@
-#### SETTING UP PROJECT AND REQUIRED ENVIRONMENT FOR DEVELOPMENT AND DEPLOYMENT
+##### SETTING UP PROJECT AND REQUIRED ENVIRONMENT
 
 ### install Node.js
 
-windows(x64) : https://nodejs.org/dist/v12.1.0/node-v12.1.0-x64.msi
-additional information : https://nodejs.org/en/
+windows(x64) : `https://nodejs.org/dist/v12.1.0/node-v12.1.0-x64.msi`
+
+additional information : `https://nodejs.org/en/`
 
 during installation process check all the features given.
 
 ### After installation :
 
-check node version in command prompt : node -v
-check npm version in command prompt : npm -v
+check node version in command prompt : `node -v`
+
+check npm version in command prompt : `npm -v`
 
 ### install firebase for node.js
 
@@ -22,27 +24,33 @@ check npm version in command prompt : npm -v
 
 ### cloning code
 
-C:\Users\(Your Name)> D:
+`C:\Users\(Your Name)> D:`
 
-D:\> git clone https://github.com/quickcore-srix/seamless-react.git
+`D:\> git clone https://github.com/quickcore-srix/seamless-react.git`
 
-D:\> cd seamless-react
+`D:\> cd seamless-react`
+
+### install all dependencies in package.json for this project
+
+`npm i`
 
 ### If you don't already have a package.json file, create one via
 
 `npm init`
 
-###Install the firebase npm package and save it to your package.json file by running:
+### Install the firebase npm package and save it to your package.json file by running:
+
 `npm install --save firebase`
 
-###Install the firebase tools
+### Install the firebase tools
+
 `npm i -g firebase-tools`
 
 ### Next, install the firebase-admin npm package and save it to your package.json
 
 `npm install firebase-admin --save`
 
-To generate a private key file for your service account:
+### To generate a private key file for your service account:
 
 1.In the Firebase console, open Settings > Service Accounts.
 
@@ -54,7 +62,7 @@ To generate a private key file for your service account:
 
 https://firebase.google.com/docs/auth/admin/
 
-###### SETTING UP DEVELOPMENT ENVIRONMENT
+#### SETTING UP DEVELOPMENT ENVIRONMENT
 
 ### change `config=devConfig` in src/Firebase/firebase.js file
 
@@ -64,13 +72,13 @@ https://firebase.google.com/docs/auth/admin/
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
+Builds the app for production to the `dist` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 ### `npm start`
 
 Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:8080] to view it in the browser.
 
 if webapp runs perfectly at local machine then,
 
@@ -78,16 +86,16 @@ if webapp runs perfectly at local machine then,
 
 ### `firebase use --add dev`
 
-     choosing firebase development project "seamless-connectivity-dev" for deploying
+choosing firebase development project "seamless-connectivity-dev" for deploying
 
 ### `firebase init`
 
-      cli features : firestore,functions,hosting,storage
-      language : javascript
-      file functions/index.js already exists. Overwrite? (y/N) : N
-       What do you want to use as your public directory? build
-        Configure as a single-page app (rewrite all urls to /index.html)? (y/N) y
-        File build/index.html already exists. Overwrite? (y/N) N
+      cli features : ` firestore,functions,hosting,storage `
+      language : `javascript`
+      file functions/index.js already exists. Overwrite? (y/N) : `N`
+      What do you want to use as your public directory? `dist`
+      Configure as a single-page app (rewrite all urls to /index.html)? (y/N) : `y`
+      File build/index.html already exists. Overwrite? (y/N) : `N`
 
 ### `firebase deploy`
 
@@ -105,7 +113,7 @@ if development project works fine then go for production mode
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
+Builds the app for production to the `dist` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 ### `firebase use --add default`
@@ -114,12 +122,12 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 ### `firebase init`
 
-      cli features : firestore,functions,hosting,storage
-      language : javascript
-      file functions/index.js already exists. Overwrite? (y/N) : N
-       What do you want to use as your public directory? build
-        Configure as a single-page app (rewrite all urls to /index.html)? (y/N) y
-        File build/index.html already exists. Overwrite? (y/N) N
+      cli features : `firestore,functions,hosting,storage`
+      language : `javascript`
+      file functions/index.js already exists. Overwrite? (y/N) : `N`
+       What do you want to use as your public directory? `dist`
+        Configure as a single-page app (rewrite all urls to /index.html)? (y/N): `y`
+        File build/index.html already exists. Overwrite? (y/N) : `N`
 
 ### `firebase deploy`
 
@@ -130,3 +138,8 @@ It correctly bundles React in production mode and optimizes the build for the be
 development : https://seamless-connectivity-dev.firebaseapp.com/
 
 production : https://seamless-connectivity.firebaseapp.com/
+
+                          Hope works well!!
+
+          any issues ?  create an issue here : `https://github.com/quickcore-srix/seamless-react/issues`
+                         we will come to you as soon as possible
