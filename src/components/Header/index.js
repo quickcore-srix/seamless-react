@@ -1,5 +1,20 @@
 import React, { Component } from "react";
+import { withFirebase } from "../Firebase";
+import { compose } from "recompose";
+
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    console.log("header");
+    console.log(this.props.firebase + "  jaypal");
+    // this.state.displayName = props.firebase.auth.currentUser.displayName;
+  }
+  componentDidMount() {
+    /*showDisplayName = () => {
+      this.setState({ displayName: this.props.auth.currentUser.displayName });
+      console.log(this.state.displayName);
+    };*/
+  }
   render() {
     return (
       <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -82,7 +97,9 @@ class Header extends Component {
               aria-expanded="false"
             >
               <span className="mr-2 d-none d-lg-inline text-gray-600 small">
-                Valerie Luna
+                {/*console.log(this.props.firebase.auth.currentUser.displayName)*/}
+                {/*this.state.displayName}
+                {console.log(this.props.firebase.auth.currentUser)*/}
               </span>
               <img
                 className="img-profile rounded-circle"
@@ -124,4 +141,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default compose(withFirebase)(Header);

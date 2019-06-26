@@ -30,7 +30,7 @@ const INITIAL_STATE = {
 class SignInFormBase extends Component {
   constructor(props) {
     super(props);
-
+    console.log("sigin form");
     this.state = { ...INITIAL_STATE };
   }
 
@@ -41,6 +41,7 @@ class SignInFormBase extends Component {
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
+        console.log(this.state);
         this.props.history.push(ROUTES.HOME);
       })
       .catch(error => {

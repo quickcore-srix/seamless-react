@@ -3,6 +3,7 @@ const admin = require("firebase-admin");
 admin.initializeApp(functions.config().firebase);
 var db = admin.firestore();
 var docRef = db.collection("users");
+
 exports.addUser = functions.https.onCall((data, context) => {
   return admin
     .auth()
@@ -78,3 +79,36 @@ exports.deleteUser = functions.https.onCall((data, context) => {
       return console.log("Error fetching user data:", error);
     });
 });
+
+// Listens for new messages added to /:pushId and creates an
+// uppercase version of the message to /messages/:pushId/uppercase
+exports.makeUppercase = functions.database
+  .ref("/{pushId}")
+  .onCreate((snapshot, context) => {
+    // Grab the current value of what was written to the Realtime Database.
+    const master_id = snapshot.val().master_id;
+    const slave_id = snapshot.val().slave_id;
+    console.log(
+      "timestamp : ",
+      context.params.pushId,
+      "  master_id :  ",
+      master_id,
+      "   slave_id :  ",
+      slave_id
+    );
+    // const uppercase = original.toUpperCase();
+    // You must return a Promise when performing asynchronous tasks inside a Functions such as
+    // writing to the Firebase Realtime Database.
+    // Setting an "uppercase" sibling in the Realtime Database returns a Promise.
+
+    return db
+      .collection("data")
+      .doc(context.params.pushId)
+      .set({ master_id: master_id, slave_id: slave_id })
+      .then(result => {
+        return {
+          message: `Successfully sent to firestore : ${result}`
+        };
+      });
+    //return snapshot.ref.parent.child("uppercase").set(uppercase);
+  });

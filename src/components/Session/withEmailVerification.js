@@ -1,8 +1,12 @@
 import React from "react";
 
+import * as ROUTES from "../../constants/routes";
 import AuthUserContext from "./context";
 import { withFirebase } from "../Firebase";
-
+import { withRouter } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import { HOME } from "../../constants/routes";
+import SignOutButton from "../SignOut/signout";
 const needsEmailVerification = authUser =>
   authUser &&
   !authUser.emailVerified &&
@@ -14,8 +18,8 @@ const withEmailVerification = Component => {
   class WithEmailVerification extends React.Component {
     constructor(props) {
       super(props);
-
-      this.state = { isSent: false };
+      console.log("withEmailVerification");
+      this.state = { isSent: false, redirect: false };
     }
 
     onSendEmailVerification = () => {
@@ -51,6 +55,17 @@ const withEmailVerification = Component => {
                 >
                   Send confirmation E-Mail
                 </button>
+
+                {/*  <div>
+                  <button
+                    type="button"
+                    //onClick={this.props.history.push(ROUTES.SIGN_IN)}
+                    onClick={firebase.doSignout}
+                  >
+                    Back To HOME
+                  </button>
+                </div>
+              */}
               </div>
             ) : (
               <Component {...this.props} />
