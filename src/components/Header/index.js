@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withFirebase } from "../Firebase";
 import { compose } from "recompose";
+import { AuthUserContext } from "../Session";
 
 class Header extends Component {
   constructor(props) {
@@ -100,6 +101,9 @@ class Header extends Component {
                 {/*console.log(this.props.firebase.auth.currentUser.displayName)*/}
                 {/*this.state.displayName}
                 {console.log(this.props.firebase.auth.currentUser)*/}
+                <AuthUserContext.Consumer>
+                  {authUser => authUser.username}
+                </AuthUserContext.Consumer>
               </span>
               <img
                 className="img-profile rounded-circle"

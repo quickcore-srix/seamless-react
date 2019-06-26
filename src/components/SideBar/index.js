@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AddUserPage, { AddUser } from "../Admin/AddUser";
+import AddUserPage, { AddUser } from "../Dashboard/AddUser";
 class Sidebar extends Component {
   render() {
     return (
@@ -64,10 +64,10 @@ class Sidebar extends Component {
           >
             <div className="bg-white py-2 collapse-inner rounded">
               <h6 className="collapse-header">Admin functions:</h6>
-              <a className="collapse-item" href="">
+              <a className="collapse-item" href="adduser">
                 Add new user
               </a>
-              <a className="collapse-item" href="">
+              <a className="collapse-item" href="addnode">
                 Add new node
               </a>
               <a className="collapse-item" href="">

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { withAuthorization, withEmailVerification } from "../Session";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
-import AddUserPage from "../Admin/AddUser";
+import AddUserPage from "../Dashboard/AddUser";
 import Header from "../Header";
 import Sidebar from "../SideBar";
 import Dashboard from "../Dashboard";

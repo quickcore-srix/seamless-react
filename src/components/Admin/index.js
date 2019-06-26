@@ -7,7 +7,7 @@ import { UserItem } from "../Users";
 import * as ROLES from "../../constants/roles";
 import * as ROUTES from "../../constants/routes";
 import { withFirebase } from "../Firebase";
-import AddUserPage from "./AddUser";
+import AddUserPage from "../Dashboard/AddUser";
 
 const AdminPage = () => (
   <div>

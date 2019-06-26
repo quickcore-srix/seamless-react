@@ -20,6 +20,9 @@ import * as ROUTES from "../../constants/routes";
 import { withAuthentication } from "../Session";
 import Footer from "../Footer";
 
+import AddUserPage from "../Dashboard/AddUser";
+import AddNodePage from "../Dashboard/AddNode";
+
 class App extends Component {
   render() {
     return (
@@ -42,6 +45,8 @@ const NavigationAuth = ({ authUser }) => (
       <Route exact path={ROUTES.HOME} component={HomePage} />
       <Route path={ROUTES.ACCOUNT} component={AccountPage} />
       <Route path={ROUTES.ADMIN} component={AdminPage} />
+      <Route path={ROUTES.ADDUSER} component={AddUserPage} />
+      <Route path={ROUTES.ADDNODE} component={AddNodePage} />
       <Footer />
     </div>
   </Router>

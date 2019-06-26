@@ -44,6 +44,26 @@ exports.addUser = functions.https.onCall((data, context) => {
     });
 });
 
+exports.addNode = functions.https.onCall((data, context) => {
+  return admin
+    .firestore()
+    .collection("nodes")
+    .doc(data.mac_id)
+    .set({
+      name: data.name,
+      mac_id: data.mac_id,
+      address: data.address
+    })
+    .then(writeResult => {
+      return {
+        message: `Successfully created new node:${data.name} , ${writeResult}`
+      };
+    })
+    .catch(error => {
+      console.log("Error writing user details to firestore:", error);
+    });
+});
+
 exports.deleteUser = functions.https.onCall((data, context) => {
   return admin
     .auth()
