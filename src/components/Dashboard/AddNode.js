@@ -28,11 +28,15 @@ class AddNode extends Component {
       name: name,
       mac_id: mac_id,
       address: address
-    }).then(result => {
-      console.log(result);
-    });
+    })
+      .then(result => {
+        console.log("   node created : " + this.state.name);
+        console.log(result);
+      })
+      .catch(error => console.log("error creating node : ", error));
+    alert("user created : " + this.state.name);
 
-    event.preventDefault();
+    //event.preventDefault();
   };
 
   onChange = event => {

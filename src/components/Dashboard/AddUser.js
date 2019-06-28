@@ -27,22 +27,24 @@ class AddUser extends Component {
   }
   onSubmit = event => {
     const { name, email, password, mac_id, address, phone } = this.state;
-    const add = this.props.firebase.funct.httpsCallable("addUser");
+    const add = this.props.firebase.funct.httpsCallable("addTag");
     add({
       email: email,
-      emailVerified: false,
-      phoneNumber: "+91" + phone,
-      password: password,
-      displayName: name,
+      phone: "+91" + phone,
+      name: name,
       disabled: false,
       roles: [],
       mac_id: mac_id,
       address: address
-    }).then(result => {
-      console.log(result);
-    });
+    })
+      .then(result => {
+        console.log("   user created : " + this.state.name);
+        console.log(result);
+      })
+      .catch(error => console.log("error creating user : ", error));
+    alert("user created : " + this.state.name);
 
-    event.preventDefault();
+    // event.preventDefault();
   };
 
   onChange = event => {

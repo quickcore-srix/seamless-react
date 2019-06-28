@@ -44,6 +44,31 @@ exports.addUser = functions.https.onCall((data, context) => {
     });
 });
 
+exports.addTag = functions.https.onCall((data, context) => {
+  return admin
+    .firestore()
+    .collection("users")
+    .doc(data.mac_id)
+    .set({
+      username: data.name,
+      email: data.email,
+      roles: data.roles,
+      mac_id: data.mac_id,
+      address: data.address,
+      phone: data.phone
+    })
+    .then(writeResult => {
+      return {
+        message: `Successfully created new user:${data.email} uid: ${
+          data.mac_id
+        } and ${writeResult}`
+      };
+    })
+    .catch(error => {
+      console.log("Error creating new user:", error);
+    });
+});
+
 exports.addNode = functions.https.onCall((data, context) => {
   return admin
     .firestore()
@@ -56,7 +81,9 @@ exports.addNode = functions.https.onCall((data, context) => {
     })
     .then(writeResult => {
       return {
-        message: `Successfully created new node:${data.name} , ${writeResult}`
+        message: `Successfully created new node:${data.name} , mac_id : ${
+          data.mac_id
+        } , ${writeResult}`
       };
     })
     .catch(error => {
@@ -102,7 +129,7 @@ exports.deleteUser = functions.https.onCall((data, context) => {
 
 // Listens for new messages added to /:pushId and creates an
 // uppercase version of the message to /messages/:pushId/uppercase
-exports.makeUppercase = functions.database
+exports.sendToFirebase = functions.database
   .ref("/{pushId}")
   .onCreate((snapshot, context) => {
     // Grab the current value of what was written to the Realtime Database.
