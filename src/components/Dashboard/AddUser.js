@@ -40,11 +40,11 @@ class AddUser extends Component {
       .then(result => {
         console.log("   user created : " + this.state.name);
         console.log(result);
+        alert("user created : " + this.state.name);
       })
       .catch(error => console.log("error creating user : ", error));
-    alert("user created : " + this.state.name);
 
-    // event.preventDefault();
+    event.preventDefault();
   };
 
   onChange = event => {

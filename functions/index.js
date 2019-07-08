@@ -129,19 +129,32 @@ exports.deleteUser = functions.https.onCall((data, context) => {
 
 // Listens for new messages added to /:pushId and creates an
 // uppercase version of the message to /messages/:pushId/uppercase
+//let date = "";
+//let time = "";
+//let master_id = "";
+//let slave_id = "";
 exports.sendToFirebase = functions.database
-  .ref("/{pushId}")
+  .ref("/{timestamp}")
   .onCreate((snapshot, context) => {
     // Grab the current value of what was written to the Realtime Database.
+    const timestamp1 = context.params.timestamp;
+    const dateF = timestamp1.split("Z");
+    const dateFormat = dateF[0].split("T");
+    const date = dateFormat[0];
+    const time = dateFormat[1];
     const master_id = snapshot.val().master_id;
     const slave_id = snapshot.val().slave_id;
     console.log(
-      "timestamp : ",
-      context.params.pushId,
-      "  master_id :  ",
+      "master_id : ",
       master_id,
       "   slave_id :  ",
-      slave_id
+      slave_id,
+      // "date : ",
+      // date,
+      //"time : ",
+      //time
+      "timestamp : ",
+      timestamp1
     );
     // const uppercase = original.toUpperCase();
     // You must return a Promise when performing asynchronous tasks inside a Functions such as
@@ -150,12 +163,17 @@ exports.sendToFirebase = functions.database
 
     return db
       .collection("data")
-      .doc(context.params.pushId)
-      .set({ master_id: master_id, slave_id: slave_id })
+      .doc(master_id)
+      .collection(date)
+      .doc(slave_id)
+      .set({ time: time })
       .then(result => {
         return {
           message: `Successfully sent to firestore : ${result}`
         };
+      })
+      .catch(err => {
+        return console.log(err, " master_id : ", master_id);
       });
     //return snapshot.ref.parent.child("uppercase").set(uppercase);
   });
