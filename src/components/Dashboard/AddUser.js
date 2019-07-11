@@ -62,9 +62,9 @@ class AddUser extends Component {
       address === "" ||
       phone === "";
     return (
-      <div className="text-center">
+      <div className="text-center ">
         <div className="row">
-          <div className="mx-auto col-md-6 col-10 bg-white p-5">
+          <div className="mx-auto bg-white p-5">
             <h1 className="mb-4">Add User</h1>
             <form onSubmit={this.onSubmit}>
               <div className="form-group">

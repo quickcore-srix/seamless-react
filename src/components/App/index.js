@@ -1,27 +1,15 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-
-import Navigation from "../Navigation";
-import LandingPage from "../Landing";
-import SignUpPage from "../SignUp";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import SignInPage from "../SignIn";
 import PasswordForgetPage from "../PasswordForget";
 import HomePage from "../Home";
 import AccountPage from "../Account";
 import AdminPage from "../Admin";
-import Dashboard from "../Dashboard";
-
-import { Link } from "react-router-dom";
-
 import { AuthUserContext } from "../Session";
-import Home from "../Home";
 
 import * as ROUTES from "../../constants/routes";
 import { withAuthentication } from "../Session";
 import Footer from "../Footer";
-
-import AddUserPage from "../Dashboard/AddUser";
-import AddNodePage from "../Dashboard/AddNode";
 
 class App extends Component {
   render() {
@@ -42,12 +30,11 @@ class App extends Component {
 const NavigationAuth = ({ authUser }) => (
   <Router>
     <div>
-      <Route exact path={ROUTES.HOME} component={HomePage} />
+      <Route exact path={ROUTES.LANDING} component={HomePage} />
+      <Route path={ROUTES.HOME} component={HomePage} />
       <Route path={ROUTES.ACCOUNT} component={AccountPage} />
       <Route path={ROUTES.ADMIN} component={AdminPage} />
-      <Route path={ROUTES.ADDUSER} component={AddUserPage} />
-      <Route path={ROUTES.ADDNODE} component={AddNodePage} />
-      <Footer />
+      <Redirect to="/home" />
     </div>
   </Router>
 );
@@ -56,7 +43,7 @@ const NavigationNonAuth = () => (
   <Router>
     <div>
       <Route exact path={ROUTES.SIGN_IN} component={SignInPage} />
-      <Route path={ROUTES.LANDING} component={LandingPage} />
+      <Route path={ROUTES.LANDING} component={SignInPage} />
       <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
       <Footer />
     </div>

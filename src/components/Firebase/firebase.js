@@ -50,7 +50,7 @@ class Firebase {
 
     if (config === devConfig) {
       console.log("development mode..");
-      window.alert("development mode..");
+      // window.alert("development mode..");
     } else console.log("production mode..");
 
     /* Helper */
@@ -150,11 +150,6 @@ class Firebase {
   user = mac_id => this.db.doc(`users/${mac_id}`);
 
   users = () => this.db.collection("users");
-  // *** Message API ***
-
-  message = uid => this.db.doc(`messages/${uid}`);
-
-  messages = () => this.db.collection("messages");
 }
 
 export default Firebase;

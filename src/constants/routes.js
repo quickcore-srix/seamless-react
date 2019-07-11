@@ -9,3 +9,4 @@ export const ADMIN = "/admin";
 export const ADMIN_DETAILS = "/admin/:id";
 export const ADDUSER = "/adduser";
 export const ADDNODE = "/addnode";
+export const ALLUSERS = "/allusers";
